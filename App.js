@@ -18,7 +18,7 @@ export default function App() {
 
     const fetchTasks = async () => {
         try {
-            const response = await axios.get('http://192.168.33.36:5000/api/tasks'); //fetch
+            const response = await axios.get('http://localhost:5000/api/tasks'); //fetch
             setItems(response.data)
             console.log(response.data)
         } catch (error) {
@@ -32,7 +32,7 @@ export default function App() {
         console.log(updatedTasks[index].isCompleted);
         if (updatedTasks[index].isCompleted > 1) {
             try {
-                await axios.delete('http://192.168.33.36:5000/api/tasks/' + updatedTasks[index].id);
+                await axios.delete('http://localhost:5000/api/tasks/' + updatedTasks[index].id);
                 setItems(prevItems => prevItems.filter(item => item.id !== updatedTasks[index].id));
             } catch (error) {
                 console.error("Error deleting task from server: ", error)
@@ -42,7 +42,7 @@ export default function App() {
             setItems(updatedTasks);
 
             try {
-                await axios.put('http://192.168.33.36:5000/api/tasks/' + updatedTasks[index].id, { isCompleted: updatedTasks[index].isCompleted });
+                await axios.put('http://localhost:5000/api/tasks/' + updatedTasks[index].id, { isCompleted: updatedTasks[index].isCompleted });
             } catch (error) {
                 console.error("Error updating task to server: ", error);
             }
@@ -53,7 +53,7 @@ export default function App() {
         if (task == undefined) { console.error("Text is empty") }
         else {
             try {
-                const response = await axios.post('http://192.168.33.36:5000/api/tasks', { title: task, isCompleted: 0 }); // add task to server
+                const response = await axios.post('http://localhost:5000/api/tasks', { title: task, isCompleted: 0 }); // add task to server
                 console.log(response.data)
                 setItems(prevItems => [...prevItems, response.data]); // update state with added task
             } catch (error) {
